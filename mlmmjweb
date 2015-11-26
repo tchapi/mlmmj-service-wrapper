@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          mlmmj
+# Provides:          mlmmjweb
 # Required-Start:    $local_fs $network $named $time $syslog
 # Required-Stop:     $local_fs $network $named $time $syslog
 # Default-Start:     2 3 4 5
@@ -10,14 +10,16 @@
 #                    And invokes the web interface : https://github.com/tchapi/mlmmj-simple-web-interface
 ### END INIT INFO
 
-NAME=mlmmj
+NAME=mlmmjweb
+USER=MyUser
 
-SCRIPT="/usr/bin/mlmmj-maintd -d /var/spool/mlmmj"
-PIDGET="pgrep mlmmj-maintd"
-RUNAS=root
+SCRIPT="cd /home/$USER/groups && node index.js -- mlmmjweb"
+PIDGET="pgrep -f mlmmjweb"
+RUNAS=list
 
 PIDFILE=/var/run/$NAME.pid
-LOGFILE=/var/log/$NAME.log
+# needs to sudo chown list logs beforehand
+LOGFILE=/home/$USER/groups/logs/$NAME.log
 
 start() {
   if [ -f $PIDFILE ] && kill -0 $(cat $PIDFILE); then
@@ -26,7 +28,7 @@ start() {
   fi
   echo 'Starting service…' >&2
   local CMD="$SCRIPT &> \"$LOGFILE\" & echo \$!"
-  su -c "$CMD" $RUNAS
+  sudo su -m -c "$CMD" $RUNAS
   sudo sh -c "$PIDGET > $PIDFILE"
 }
 
