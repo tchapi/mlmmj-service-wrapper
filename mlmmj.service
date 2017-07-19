@@ -1,0 +1,11 @@
+[Unit]
+Description=This script provides a simple wrapper for mlmmj run as a daemon
+After=syslog.target network.target
+
+[Service]
+User=root
+Type=forking
+ExecStart=/usr/bin/mlmmj-maintd -d /var/spool/mlmmj
+
+[Install]
+WantedBy=multi-user.target
