@@ -1,6 +1,8 @@
 # mlmmj-service-wrapper
 
-A very straightforward **init.d** and **systemd** wrapper for mlmmj (http://mlmmj.org) and [mlmmj-simple-web)interface](https://github.com/tchapi/mlmmj-simple-web-interface).
+See https://tchap.me/blog/a-simple-web-interface-for-mlmmj/
+
+A very straightforward **init.d** and **systemd** wrapper for mlmmj (http://mlmmj.org) and [mlmmj-simple-web-interface](https://github.com/tchapi/mlmmj-simple-web-interface).
 
 #### init.d
 
